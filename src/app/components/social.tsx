@@ -1,23 +1,29 @@
 import React, { CSSProperties } from 'react';
 import Link from 'next/link';
 import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { monoton } from '@/app/ui/fonts';
 
 const Header = () => {
     const style: CSSProperties = {
-        position: 'fixed',
+        position: 'sticky',
         top: 0,
         width: '100%',
         backgroundColor: '#333',
         color: '#fff',
-        padding: '10px',
+        padding: '1px 10px', // Change this line
         display: 'flex',
         justifyContent: 'space-between'
     };
 
     const navStyle: CSSProperties = {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        alignItems: `center`
+    };
+
+    const linkStyle: CSSProperties = {
+        color: '#3c4f3a',
+        marginLeft: '10px',
+        marginRight: '10px',
     };
 
     const links = [
@@ -27,11 +33,11 @@ const Header = () => {
     ];
     return (
         <header style={style}>
-            <h1>My Website</h1>
+            <h1 className={`${monoton.className}`}>nie rób kina</h1>
             <nav style={navStyle}>
                 {links.map((link, index) => (
                     <Link key={index} href={link.url} passHref>
-                        <span style={{ color: '#fff', marginLeft: '10px' }}>
+                        <span style={linkStyle}>
                             {link.name}
                         </span>
                     </Link>
