@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { inter} from "@/app/ui/fonts";
+import { inter } from "@/app/ui/fonts";
 import "./globals.css";
 
 import Social from "@/app/components/social";
