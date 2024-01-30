@@ -3,6 +3,8 @@ import { inter } from "@/app/ui/fonts";
 import "./globals.css";
 
 import Social from "@/app/components/social";
+import LogoBox from "@/app/components/logo";
+import Navbar from "@/app/components/navbar";
 
 export const metadata: Metadata = {
   title: "Kino Newa",
@@ -17,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Social />
+        <Navbar />
         {children}
       </body>
     </html>
