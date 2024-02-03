@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      textShadow: {
+        default: "0 2px 5px rgba(0, 0, 0, 0.5)",
+        // you can add more custom text shadows here
+      },
       colors: {
         "newa-green": "#3c4f3a",
       },

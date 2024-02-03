@@ -1,97 +1,87 @@
 "use client";
-
+import React, { useState } from "react";
+import { AiOutlineMenu } from "react-icons/ai";
+import { RxCross1 } from "react-icons/rx";
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import Dropdown from "@/app/components/dropdown";
 import { monoton } from "@/app/ui/fonts";
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
-
-  const links = [
+  const [navbar, setNavbar] = useState(false);
+  const menu = [
     {
-      id: 1,
-      capt: "o kinie",
-      link: "",
+      name: "O Kinie",
+      dropdown: [
+        { name: "O Kinie", url: "/about" },
+        { name: "Bilety", url: "" },
+        { name: "Regulamin", url: "" },
+      ],
     },
-    {
-      id: 2,
-      capt: "premiery",
-      link: "new-releases",
-    },
-    {
-      id: 3,
-      capt: "zapowiedzi",
-      link: "upcoming",
-    },
-    {
-      id: 4,
-      capt: "repertuar",
-      link: "repertoire",
-    },
-    {
-      id: 5,
-      capt: "kontakt",
-      link: "contact",
-    },
+    { name: "Premiery", url: "/new-releases" },
+    { name: "Zapowiedzi", url: "/upcoming" },
+    { name: "Repertuar", url: "/repertoire" },
+    { name: "Kontakt", url: "/contact" },
   ];
-
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-gray-800 sticky nav">
-      <div className="flex h-full items-center">
-        <Link href="/">
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={80}
-            height={80}
-            className="cursor-pointer relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          />
-        </Link>
-        <Link href="/">
-          <h1
-            className={`${monoton.className} text-xl md:text-4xl md:leading-normal text-newa-green`}
-          >
-            kino newa
-          </h1>
-        </Link>
-      </div>
-
-      <ul className="hidden md:flex">
-        {links.map(({ id, capt, link }) => (
-          <li
-            key={id}
-            className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-300 hover:scale-105 hover:text-newa-green duration-200 link-underline hover:bg-newa-green bg-opacity-10 hover:bg-opacity-20 transition-all py-2"
-          >
-            <Link href={link}>{capt}</Link>
-          </li>
-        ))}
-      </ul>
-
-      <div
-        onClick={() => setNav(!nav)}
-        className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-      >
-        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-      </div>
-
-      {nav && (
-        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full bg-gradient-to-b from-black to-gray-800 text-newa-green">
-          {links.map(({ id, capt, link }) => (
-            <li
-              key={id}
-              className="px-4 cursor-pointer capitalize py-6 text-2xl hover:text-white duration-200 link-underline hover:bg-newa-green bg-opacity-10 hover:bg-opacity-20 transition-all"
-            >
-              <Link onClick={() => setNav(!nav)} href={link}>
-                {capt}
+    <nav className="w-full pt-16 bg-gray-800 text-shadow rounded-e-lg z-40">
+      <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+        <div>
+          <div className="flex items-center justify-between py-2 md:py-1 md:block">
+            <div className="flex h-full items-center">
+              <Link href="/">
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  width={80}
+                  height={80}
+                  className="cursor-pointer relative drop-shadow-[0_0_0.3rem_#ffffff70] invert"
+                />
               </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+              <Link href="/">
+                <h1
+                  className={`${monoton.className} text-xl md:text-4xl md:leading-normal text-newa-green shadow-amber-700`}
+                >
+                  kino newa
+                </h1>
+              </Link>
+            </div>
+
+            <div className="md:hidden">
+              <button
+                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                onClick={() => setNavbar(!navbar)}
+              >
+                {navbar ? (
+                  <RxCross1 className="text-white bg-gray-600" />
+                ) : (
+                  <AiOutlineMenu className="text-white" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+              navbar ? "block" : "hidden"
+            }`}
+          >
+            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+              {menu.map(({ name, url, dropdown }, index) => (
+                <li key={index} className="text-white hover:text-newa-green">
+                  {dropdown ? (
+                    <Dropdown name={name} dropdownItems={dropdown} />
+                  ) : (
+                    <Link href={url}>{name}</Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 };
-
 export default Navbar;

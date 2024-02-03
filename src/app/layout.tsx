@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import Social from "@/app/components/social";
-import NavbarEvo from "@/app/components/navbarevo";
+import Navbar from "@/app/components/navbar";
+import DaisyNavbar from "@/app/components/daisynavbar";
 
 export const metadata: Metadata = {
   title: "Kino Newa",
@@ -17,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="{inter.className} bg-black text-white">
-        <Social />
+        {/*<Social />*/}
         {/*<LogoBox />*/}
-        <NavbarEvo />
+        <DaisyNavbar />
         {children}
       </body>
     </html>
