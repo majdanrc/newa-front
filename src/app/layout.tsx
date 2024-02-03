@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import Social from "@/app/components/social";
-import Navbar from "@/app/components/navbar";
 import DaisyNavbar from "@/app/components/daisynavbar";
 
 export const metadata: Metadata = {
@@ -21,7 +19,7 @@ export default function RootLayout({
         {/*<Social />*/}
         {/*<LogoBox />*/}
         <DaisyNavbar />
-        {children}
+        <div className="py-12">{children}</div>
       </body>
     </html>
   );
