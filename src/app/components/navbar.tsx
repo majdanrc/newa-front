@@ -12,33 +12,33 @@ const Navbar = () => {
   const links = [
     {
       id: 1,
-      capt: "home",
+      capt: "o kinie",
       link: "",
     },
     {
       id: 2,
-      capt: "o kinie",
-      link: "about",
+      capt: "premiery",
+      link: "new-releases",
     },
     {
       id: 3,
-      capt: "portfolio",
-      link: "portfolio",
+      capt: "zapowiedzi",
+      link: "upcoming",
     },
     {
       id: 4,
-      capt: "experience",
-      link: "experience",
+      capt: "repertuar",
+      link: "repertoire",
     },
     {
       id: 5,
-      capt: "contact",
+      capt: "kontakt",
       link: "contact",
     },
   ];
 
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-black fixed nav">
+    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-gray-800 sticky nav">
       <div className="flex h-full items-center">
         <Link href="/">
           <Image
@@ -62,7 +62,7 @@ const Navbar = () => {
         {links.map(({ id, capt, link }) => (
           <li
             key={id}
-            className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-300 hover:scale-105 hover:text-newa-green duration-200 link-underline"
+            className="nav-links px-4 cursor-pointer capitalize font-medium text-gray-300 hover:scale-105 hover:text-newa-green duration-200 link-underline hover:bg-newa-green bg-opacity-10 hover:bg-opacity-20 transition-all py-2"
           >
             <Link href={link}>{capt}</Link>
           </li>
@@ -77,14 +77,14 @@ const Navbar = () => {
       </div>
 
       {nav && (
-        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500">
-          {links.map(({ id, link }) => (
+        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full bg-gradient-to-b from-black to-gray-800 text-newa-green">
+          {links.map(({ id, capt, link }) => (
             <li
               key={id}
-              className="px-4 cursor-pointer capitalize py-6 text-4xl"
+              className="px-4 cursor-pointer capitalize py-6 text-2xl hover:text-white duration-200 link-underline hover:bg-newa-green bg-opacity-10 hover:bg-opacity-20 transition-all"
             >
               <Link onClick={() => setNav(!nav)} href={link}>
-                {link}
+                {capt}
               </Link>
             </li>
           ))}

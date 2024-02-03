@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import { inter } from "@/app/ui/fonts";
 import "./globals.css";
 
 import Social from "@/app/components/social";
-import LogoBox from "@/app/components/logo";
-import Navbar from "@/app/components/navbar";
-import Header from "@/app/components/header";
 import NavbarEvo from "@/app/components/navbarevo";
 
 export const metadata: Metadata = {
@@ -21,6 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="{inter.className} bg-black text-white">
+        <Social />
+        {/*<LogoBox />*/}
         <NavbarEvo />
         {children}
       </body>

@@ -1,4 +1,3 @@
-// Header.js
 import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -26,19 +25,8 @@ const Header = () => {
 
   return (
     <AppBar position="fixed" style={{ backgroundColor: "#3c4f3a" }}>
-      <Toolbar className="lg:flex lg:justify-between py-2">
-        <ul className="list-none flex gap-14 ml-24">
-          {contactInfo.map(({ icon, text }, index) => (
-            <li
-              key={index}
-              className="text-white text-opacity-[0.9] flex flex-row content-center justify-center gap-1 pt-1"
-            >
-              <span className=" text-royal_blue pt-1">{icon}</span>
-              {text}
-            </li>
-          ))}
-        </ul>
-        <figure className="flex mr-44 gap-3 pt-1">
+      <Toolbar className="justify-end py-2">
+        <figure className="flex gap-5">
           {socialMediaIcons.map(({ icon, link }, index) => (
             <a
               key={index}
@@ -46,7 +34,7 @@ const Header = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="text-white text-[24px] cursor-pointer hover:text-royal_blue">
+              <span className="text-white text-[18px] cursor-pointer hover:text-royal_blue">
                 {icon}
               </span>
             </a>

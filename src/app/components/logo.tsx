@@ -20,9 +20,9 @@ const LogoBox = () => {
   };
 
   return (
-    <div style={styles.logoContainer}>
+    <div style={styles.logoContainer} className="p-40">
       <Image
-        className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+        className="sticky dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
         src="/logo.png"
         alt="Logo"
         width={styles.logo.width}
