@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { monoton } from "@/app/ui/fonts";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   AiFillFacebook,
   AiFillInstagram,
@@ -18,13 +20,35 @@ const socialMediaIcons = [
 ];
 
 const DaisyNavbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   const menu = [
     {
       name: "O Kinie",
       dropdown: [
         { name: "O Kinie", url: "/about" },
-        { name: "Bilety", url: "" },
-        { name: "Regulamin", url: "" },
+        { name: "Bilety", url: "/about#bilety" },
+        { name: "Regulamin", url: "/about#regulamin" },
       ],
     },
     { name: "Premiery", url: "/new-releases" },
@@ -33,11 +57,18 @@ const DaisyNavbar = () => {
     { name: "Kontakt", url: "/contact" },
   ];
 
+  const closeMenu = () => setIsOpen(false);
+
   return (
-    <div className="navbar bg-base-100 fixed bg-gradient-to-r from-gray-900 to-newa-green">
+    <div className="navbar bg-base-100 fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 to-newa-green shadow-lg backdrop-blur-lg border-b border-gray-800">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+        <div className="dropdown" ref={dropdownRef}>
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost lg:hidden"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -53,34 +84,38 @@ const DaisyNavbar = () => {
               />
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            {menu.map(({ name, url, dropdown }, index) => (
-              <li key={index} className="text-white">
-                {dropdown ? (
-                  <Dropdown name={name} dropdownItems={dropdown} />
-                ) : (
-                  <Link href={url}>{name}</Link>
-                )}
-              </li>
-            ))}
-          </ul>
+          {isOpen && (
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[100] p-2 shadow bg-gray-800 rounded-box w-52 border border-gray-700"
+            >
+              {menu.map(({ name, url, dropdown }, index) => (
+                <li key={index} className="text-white">
+                  {dropdown ? (
+                    <Dropdown name={name} dropdownItems={dropdown} />
+                  ) : (
+                    <Link href={url} onClick={closeMenu}>
+                      {name}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-        <div className="flex h-full items-center">
-          <Link href="/">
+        <div className="flex h-full items-center gap-2">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
               alt="logo"
-              width={80}
-              height={80}
+              width={60}
+              height={60}
               className="cursor-pointer relative drop-shadow-[0_0_0.3rem_#ffffff70] invert"
             />
           </Link>
-          <Link href="/">
+          <Link href="/" className="hidden sm:block">
             <h1
-              className={`${monoton.className} text-xl md:text-3xl md:leading-normal text-gray-100`}
+              className={`${monoton.className} text-lg md:text-2xl lg:text-3xl text-gray-100 whitespace-nowrap`}
             >
               kino newa
             </h1>
@@ -88,28 +123,34 @@ const DaisyNavbar = () => {
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 gap-2">
           {menu.map(({ name, url, dropdown }, index) => (
             <li key={index} className="text-white">
               {dropdown ? (
                 <Dropdown name={name} dropdownItems={dropdown} />
               ) : (
-                <Link href={url}>{name}</Link>
+                <Link
+                  href={url}
+                  className="hover:bg-newa-green/20 transition-colors px-4 py-2 rounded-lg"
+                >
+                  {name}
+                </Link>
               )}
             </li>
           ))}
         </ul>
       </div>
       <div className="navbar-end">
-        <figure className="flex gap-5 px-4">
+        <figure className="hidden md:flex gap-3 lg:gap-5 px-2 lg:px-4">
           {socialMediaIcons.map(({ icon, link }, index) => (
             <a
               key={index}
               href={link}
               target="_blank"
               rel="noopener noreferrer"
+              className="hover:text-newa-green transition-colors"
             >
-              <span className="text-white text-[18px] cursor-pointer">
+              <span className="text-white text-[18px] lg:text-[20px] cursor-pointer">
                 {icon}
               </span>
             </a>
