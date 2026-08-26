@@ -34,13 +34,18 @@ Next.js 14 App Router site (`src/app`), TypeScript, Tailwind CSS + DaisyUI, with
 
 The rest — `navbar.tsx`, `navbarold.tsx`, `dropdown.tsx`, `header.tsx`, `topheader.tsx`, `logo.tsx`, `social.tsx` — are not imported from any page or from `daisynavbar.tsx`, and are safe to delete once confirmed unwanted (check with the user first since this may be reference material for future nav tweaks).
 
-### Content is placeholder/sample data
+### Content: real cinema, hand-maintained data files
 
-This is a real cinema website (Kino Newa, Zielona Góra, Poland — a single-screen art-house cinema, currently under renovation per the `/about` copy), but the movie listings are all hardcoded sample arrays inside the page components themselves, not from a CMS or API:
+This is a real cinema website (Kino Newa, Zielona Góra, Poland — a single-screen art-house cinema, currently under renovation per the `/about` copy). There is no CMS or backend database yet — film/schedule content lives in two hand-edited TypeScript data files under `src/app/data/`, both explicitly marked to eventually read from real storage instead:
 
-- `repertoire/page.tsx` — a `schedule` object keyed by hardcoded date strings (e.g. `"2024-12-06"`), so the schedule page shows "no showings" for any date outside those two hardcoded dates. The day selector generates the next 7 days from `new Date()`, so this will need real/dynamic data to stay correct.
-- `new-releases/page.tsx` and `upcoming/page.tsx` — hardcoded arrays of real film titles (Parasite, Anora, etc.) used as placeholder content; posters are just emoji/icon placeholders, no actual images.
-- `contact/page.tsx` — real address/phone/email for Kino Newa, but the contact form's `handleSubmit` only shows an `alert()` — it doesn't actually send anywhere yet.
-- Social links in `daisynavbar.tsx`/`contact/page.tsx` mix a real Facebook URL (`facebook.com/kkfnewa`) with placeholder Instagram/Twitter/YouTube URLs that just point at the platforms' homepages.
+- `src/app/data/movies.ts` — the film catalog (`Movie` type + `currentMovies` array). Single source of truth for `page.tsx` (homepage "Teraz w kinach") and `new-releases/page.tsx` ("Premiery") — both just import and render `currentMovies`, so adding/removing a film only needs to happen here.
+- `src/app/data/upcoming.ts` — `upcomingMovies: Movie[]`, same `Movie` type, for `upcoming/page.tsx` ("Zapowiedzi" — films not yet released). Kept as a separate array from `movies.ts` on purpose: premieres and announced-but-unreleased films are different concepts and were previously (wrongly) conflated into one list.
+- `src/app/data/repertoire.ts` — the schedule (`ScreeningBlock` type + `repertoire` array). Each block has a `date`/`time`/`hall` and a `movieIds: string[]` that references entries in `movies.ts` by `id` — the schedule does not duplicate film data inline. This exists to support screenings that show several films together in one slot with no per-film time (e.g. a touring festival's nightly block), not just one-film-one-showtime.
+- `repertoire/page.tsx` derives its day-selector tabs from the actual dates present in `repertoire.ts` (not from `new Date()` + next-7-days like the old version), and resolves each block's `movieIds` against `movies.ts` via a `Map` built at module scope.
+- Posters live as static files in `public/posters/*.jpg`, referenced by path from `Movie.poster` and rendered via `next/image`. This is a deliberate stopgap (flagged in code comments) until real image storage exists — do not switch these to base64-embedded data URIs, that was considered and rejected because it bloats the client JS bundle.
 
-When asked to make this "real," the main gaps are: a real data source for showtimes/films (replacing the hardcoded arrays), an actual contact form submission handler, real social links, and real poster images.
+`contact/page.tsx` sends real email via `src/app/api/contact/route.ts` using the Resend API (`RESEND_API_KEY` env var, required in Netlify env vars for production too). The `to` address is currently a personal address as a `TODO`-flagged stopgap — Resend's sandbox mode refuses to deliver to `kontakt@kinonewa.pl` until the `kinonewa.pl` domain is verified at resend.com/domains, at which point `to` (and ideally `from`) should move to that domain.
+
+There are no "Kup bilet" (buy ticket) buttons anywhere in the app — Kino Newa has no online ticketing, tickets are box-office/phone only, so these were deliberately removed rather than left as dead UI.
+
+Social links are just Facebook (`facebook.com/kkfnewa`) — Instagram/Twitter/YouTube were removed since Kino Newa doesn't have real accounts on those platforms (the old links pointed at bare platform homepages, not real profiles).

@@ -1,101 +1,18 @@
 "use client";
 
 import { monoton } from "@/app/ui/fonts";
+import Image from "next/image";
 import { useState } from "react";
+import { repertoire } from "@/app/data/repertoire";
+import { currentMovies } from "@/app/data/movies";
 
-// Sample schedule data
-const getWeekDays = () => {
-  const days = [];
-  const today = new Date();
-  for (let i = 0; i < 7; i++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + i);
-    days.push(date);
-  }
-  return days;
-};
-
-const schedule = {
-  "2024-12-06": [
-    {
-      id: 1,
-      title: "Parasite",
-      time: "17:00",
-      hall: "Sala Główna",
-      duration: "132 min",
-      genre: "Dramat",
-      language: "Napisy PL",
-      price: "20 PLN",
-    },
-    {
-      id: 2,
-      title: "The Lighthouse",
-      time: "19:30",
-      hall: "Sala Główna",
-      duration: "109 min",
-      genre: "Dramat/Horror",
-      language: "Napisy PL",
-      price: "20 PLN",
-    },
-    {
-      id: 3,
-      title: "Moonlight",
-      time: "22:00",
-      hall: "Sala Główna",
-      duration: "111 min",
-      genre: "Dramat",
-      language: "Napisy PL",
-      price: "20 PLN",
-    },
-  ],
-  "2024-12-07": [
-    {
-      id: 4,
-      title: "Portrait de la jeune fille en feu",
-      time: "17:00",
-      hall: "Sala Główna",
-      duration: "122 min",
-      genre: "Dramat/Romans",
-      language: "Napisy PL",
-      price: "20 PLN",
-    },
-    {
-      id: 5,
-      title: "The Square",
-      time: "19:30",
-      hall: "Sala Główna",
-      duration: "151 min",
-      genre: "Komedia/Dramat",
-      language: "Napisy PL",
-      price: "20 PLN",
-    },
-    {
-      id: 6,
-      title: "Ida",
-      time: "22:15",
-      hall: "Sala Główna",
-      duration: "82 min",
-      genre: "Dramat",
-      language: "PL",
-      price: "15 PLN",
-    },
-  ],
-};
+const movieById = new Map(currentMovies.map((movie) => [movie.id, movie]));
 
 export default function RepertoirePage() {
-  const weekDays = getWeekDays();
-  const [selectedDay, setSelectedDay] = useState(0);
-  const [selectedHall, setSelectedHall] = useState<string>("all");
+  const days = Array.from(new Set(repertoire.map((block) => block.date))).sort();
+  const [selectedDate, setSelectedDate] = useState(days[0]);
 
-  const selectedDate = weekDays[selectedDay].toISOString().split("T")[0];
-  const daySchedule = schedule[selectedDate as keyof typeof schedule] || [];
-
-  const filteredSchedule =
-    selectedHall === "all"
-      ? daySchedule
-      : daySchedule.filter((show) => show.hall === selectedHall);
-
-  const halls = ["all", "Sala Główna"];
+  const blocksForDay = repertoire.filter((block) => block.date === selectedDate);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
@@ -109,90 +26,105 @@ export default function RepertoirePage() {
           </h1>
           <div className="w-32 h-1 bg-newa-green mx-auto mb-4"></div>
           <p className="text-gray-400 text-lg">
-            Sprawdź aktualny repertuar i zarezerwuj miejsca
+            Sprawdź aktualny repertuar
           </p>
         </div>
 
         {/* Day Selector */}
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-3 justify-center">
-            {weekDays.map((day, index) => {
-              const isToday = index === 0;
-              return (
-                <button
-                  key={index}
-                  onClick={() => setSelectedDay(index)}
-                  className={`px-6 py-4 rounded-lg transition-all min-w-[120px] ${
-                    selectedDay === index
-                      ? "bg-newa-green text-white font-semibold scale-105 shadow-lg"
-                      : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                  }`}
-                >
-                  <div className="text-sm">
-                    {isToday
-                      ? "Dziś"
-                      : day.toLocaleDateString("pl-PL", { weekday: "short" })}
-                  </div>
-                  <div className="text-lg font-bold">
-                    {day.toLocaleDateString("pl-PL", {
-                      day: "numeric",
-                      month: "short",
-                    })}
-                  </div>
-                </button>
-              );
-            })}
+        {days.length > 0 && (
+          <div className="mb-8">
+            <div className="flex flex-wrap gap-3 justify-center">
+              {days.map((date) => {
+                const d = new Date(date);
+                return (
+                  <button
+                    key={date}
+                    onClick={() => setSelectedDate(date)}
+                    className={`px-6 py-4 rounded-lg transition-all min-w-[120px] ${
+                      selectedDate === date
+                        ? "bg-newa-green text-white font-semibold scale-105 shadow-lg"
+                        : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                    }`}
+                  >
+                    <div className="text-sm">
+                      {d.toLocaleDateString("pl-PL", { weekday: "short" })}
+                    </div>
+                    <div className="text-lg font-bold">
+                      {d.toLocaleDateString("pl-PL", {
+                        day: "numeric",
+                        month: "short",
+                      })}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
+        {/* Schedule */}
+        {blocksForDay.length > 0 ? (
+          <div className="space-y-8">
+            {blocksForDay.map((block) => {
+              const movies = block.movieIds
+                .map((id) => movieById.get(id))
+                .filter((m): m is NonNullable<typeof m> => Boolean(m));
 
-        {/* Schedule Grid */}
-        {filteredSchedule.length > 0 ? (
-          <div className="space-y-4">
-            {filteredSchedule.map((show) => (
-              <div
-                key={show.id}
-                className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 hover:border-newa-green transition-all shadow-lg"
-              >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  {/* Time and Hall */}
-                  <div className="flex items-center gap-4">
+              return (
+                <div
+                  key={block.id}
+                  className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 border border-gray-700 hover:border-newa-green transition-all shadow-lg"
+                >
+                  <div className="flex flex-wrap items-center gap-4 mb-6">
                     <div className="bg-newa-green text-white px-4 py-3 rounded-lg font-bold text-xl min-w-[100px] text-center">
-                      {show.time}
+                      {block.time}
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white mb-1">
-                        {show.title}
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
-                          {show.hall}
-                        </span>
-                        <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
-                          {show.genre}
-                        </span>
-                        <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
-                          {show.duration}
-                        </span>
-                        <span className="px-3 py-1 bg-blue-900/30 text-blue-400 rounded-full text-sm">
-                          {show.language}
-                        </span>
-                      </div>
+                      {block.label && (
+                        <h3 className="text-2xl font-bold text-white mb-1">
+                          {block.label}
+                        </h3>
+                      )}
+                      <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
+                        {block.hall}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Price */}
-                  <div className="flex items-center gap-4 md:flex-col md:items-end">
-                    <div className="text-right">
-                      <p className="text-gray-400 text-sm">od</p>
-                      <p className="text-2xl font-bold text-newa-green">
-                        {show.price}
-                      </p>
-                    </div>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {movies.map((movie) => (
+                      <div
+                        key={movie.id}
+                        className="bg-gray-900/60 rounded-lg overflow-hidden border border-gray-700"
+                      >
+                        <div className="relative h-48 bg-gray-800">
+                          <Image
+                            src={movie.poster}
+                            alt={movie.title}
+                            fill
+                            className="object-cover"
+                          />
+                          {movie.polishPremiere && (
+                            <span className="absolute top-2 right-2 px-2 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
+                              Polska premiera
+                            </span>
+                          )}
+                        </div>
+                        <div className="p-4">
+                          <h4 className="font-bold text-white mb-1">
+                            {movie.title}
+                          </h4>
+                          <p className="text-gray-400 text-sm">
+                            {movie.duration}
+                            {movie.director ? ` · ${movie.director}` : ""}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-16">
@@ -240,9 +172,7 @@ export default function RepertoirePage() {
               <li>• Zalecamy przyjście 15 minut przed seansem</li>
               <li>• Możliwość rezerwacji telefonicznej</li>
               <li>• Zniżki dla studentów i seniorów przy okazaniu dokumentu</li>
-              <li>
-                • Kino studyjne - kameralna atmosfera, jedna sala
-              </li>
+              <li>• Kino studyjne - kameralna atmosfera, jedna sala</li>
             </ul>
           </div>
         </div>
@@ -250,4 +180,3 @@ export default function RepertoirePage() {
     </div>
   );
 }
-

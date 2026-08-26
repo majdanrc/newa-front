@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { monoton } from "@/app/ui/fonts";
-import { AiFillPlayCircle } from "react-icons/ai";
 import { currentMovies as featuredMovies } from "@/app/data/movies";
 
 export default function Home() {
@@ -95,9 +94,14 @@ export default function Home() {
                 key={movie.id}
                 className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
-                <div className="relative h-72 bg-gray-800 flex items-center justify-center">
+                <div className="relative h-72 bg-gray-800">
+                  <Image
+                    src={movie.poster}
+                    alt={movie.title}
+                    fill
+                    className="object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
-                  <AiFillPlayCircle className="text-8xl text-newa-green/50 group-hover:text-newa-green transition-colors z-20" />
                   <div className="absolute bottom-4 left-4 z-20">
                     <span className="px-3 py-1 bg-newa-green/80 text-white rounded-full text-sm font-semibold">
                       {movie.genre}

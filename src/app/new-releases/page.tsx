@@ -6,7 +6,7 @@ import { useState } from "react";
 import { currentMovies as newReleases } from "@/app/data/movies";
 
 export default function NewReleasesPage() {
-  const [selectedMovie, setSelectedMovie] = useState<number | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
@@ -35,11 +35,18 @@ export default function NewReleasesPage() {
               }
             >
               {/* Movie Poster */}
-              <div className="relative h-64 bg-gray-800 flex items-center justify-center">
-                <div className="text-gray-600 text-center">
-                  <p className="text-4xl mb-2">🎬</p>
-                  <p className="text-sm">Movie Poster</p>
-                </div>
+              <div className="relative h-64 bg-gray-800">
+                <Image
+                  src={movie.poster}
+                  alt={movie.title}
+                  fill
+                  className="object-cover"
+                />
+                {movie.polishPremiere && (
+                  <span className="absolute top-3 right-3 px-3 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
+                    Polska premiera
+                  </span>
+                )}
               </div>
 
               {/* Movie Info */}
