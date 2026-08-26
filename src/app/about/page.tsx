@@ -8,7 +8,7 @@ export default function AboutPage() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1
-            className={`${monoton.className} text-4xl md:text-6xl mb-6 text-newa-green`}
+            className={`${monoton.className} uppercase text-4xl md:text-6xl mb-6 text-newa-green`}
           >
             O Kinie Newa
           </h1>
@@ -103,7 +103,10 @@ export default function AboutPage() {
         </div>
 
         {/* Tickets Info */}
-        <div className="bg-gradient-to-r from-newa-green/20 to-transparent p-8 rounded-lg border-l-4 border-newa-green">
+        <div
+          id="bilety"
+          className="scroll-mt-24 bg-gradient-to-r from-newa-green/20 to-transparent p-8 rounded-lg border-l-4 border-newa-green"
+        >
           <h2 className="text-3xl font-bold text-newa-green mb-4">Bilety</h2>
           <div className="grid md:grid-cols-2 gap-8 text-gray-300">
             <div>

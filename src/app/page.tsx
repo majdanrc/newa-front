@@ -26,7 +26,7 @@ export default function Home() {
             />
           </div>
           <h1
-            className={`${monoton.className} text-5xl md:text-7xl lg:text-8xl mb-6 text-gray-100 drop-shadow-[0_0_30px_rgba(60,79,58,0.5)]`}
+            className={`${monoton.className} uppercase text-5xl md:text-7xl lg:text-8xl mb-6 text-gray-100 drop-shadow-[0_0_30px_rgba(60,79,58,0.5)]`}
           >
             kino newa
           </h1>
@@ -81,9 +81,9 @@ export default function Home() {
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2
-              className={`${monoton.className} text-3xl md:text-5xl text-newa-green mb-4`}
+              className={`${monoton.className} uppercase text-3xl md:text-5xl text-newa-green mb-4`}
             >
-              Teraz w kinach
+              Teraz w kinie
             </h2>
             <div className="w-24 h-1 bg-newa-green mx-auto"></div>
           </div>
@@ -140,7 +140,7 @@ export default function Home() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <h2
-              className={`${monoton.className} text-3xl md:text-5xl text-newa-green mb-4`}
+              className={`${monoton.className} uppercase text-3xl md:text-5xl text-newa-green mb-4`}
             >
               Dlaczego my?
             </h2>

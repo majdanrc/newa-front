@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { monoton } from "@/app/ui/fonts";
 import React, { useState, useEffect, useRef } from "react";
 import { AiFillFacebook } from "react-icons/ai";
@@ -40,7 +39,6 @@ const DaisyNavbar = () => {
       dropdown: [
         { name: "O Kinie", url: "/about" },
         { name: "Bilety", url: "/about#bilety" },
-        { name: "Regulamin", url: "/about#regulamin" },
       ],
     },
     { name: "Premiery", url: "/new-releases" },
@@ -96,18 +94,9 @@ const DaisyNavbar = () => {
           )}
         </div>
         <div className="flex h-full items-center gap-2">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={60}
-              height={60}
-              className="cursor-pointer relative drop-shadow-[0_0_0.3rem_#ffffff70] invert"
-            />
-          </Link>
-          <Link href="/" className="hidden sm:block">
+          <Link href="/">
             <h1
-              className={`${monoton.className} text-lg md:text-2xl lg:text-3xl text-gray-100 whitespace-nowrap`}
+              className={`${monoton.className} uppercase ml-2 text-lg md:text-2xl lg:text-3xl text-gray-100 whitespace-nowrap`}
             >
               kino newa
             </h1>

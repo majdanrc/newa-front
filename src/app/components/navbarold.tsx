@@ -51,7 +51,7 @@ const NavbarOld = () => {
         </Link>
         <Link href="/">
           <h1
-            className={`${monoton.className} text-xl md:text-4xl md:leading-normal text-newa-green`}
+            className={`${monoton.className} uppercase text-xl md:text-4xl md:leading-normal text-newa-green`}
           >
             kino newa
           </h1>

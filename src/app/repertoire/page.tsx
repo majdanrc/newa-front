@@ -20,7 +20,7 @@ export default function RepertoirePage() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1
-            className={`${monoton.className} text-4xl md:text-6xl mb-6 text-newa-green`}
+            className={`${monoton.className} uppercase text-4xl md:text-6xl mb-6 text-newa-green`}
           >
             Repertuar
           </h1>

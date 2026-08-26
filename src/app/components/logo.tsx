@@ -31,7 +31,7 @@ const LogoBox = () => {
       />
       <h1
         style={styles.logoText}
-        className={`${monoton.className} text-xl md:text-5xl md:leading-normal`}
+        className={`${monoton.className} uppercase text-xl md:text-5xl md:leading-normal`}
       >
         Kino Newa
       </h1>
