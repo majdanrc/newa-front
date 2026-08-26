@@ -17,12 +17,28 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    alert("Dziękujemy za wiadomość! Skontaktujemy się wkrótce.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setStatus("sending");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("send failed");
+
+      setStatus("sent");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   };
 
   const handleChange = (
@@ -142,10 +158,23 @@ export default function ContactPage() {
 
               <button
                 type="submit"
-                className="w-full px-6 py-4 bg-newa-green hover:bg-newa-green/80 text-white rounded-lg transition-colors font-semibold text-lg"
+                disabled={status === "sending"}
+                className="w-full px-6 py-4 bg-newa-green hover:bg-newa-green/80 disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg transition-colors font-semibold text-lg"
               >
-                Wyślij wiadomość
+                {status === "sending" ? "Wysyłanie..." : "Wyślij wiadomość"}
               </button>
+
+              {status === "sent" && (
+                <p className="text-green-400 text-sm text-center">
+                  Dziękujemy za wiadomość! Skontaktujemy się wkrótce.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-red-400 text-sm text-center">
+                  Nie udało się wysłać wiadomości. Spróbuj ponownie lub
+                  zadzwoń pod 68 325 59 84.
+                </p>
+              )}
             </form>
           </div>
 

@@ -3,21 +3,7 @@
 import { monoton } from "@/app/ui/fonts";
 import Image from "next/image";
 import { useState } from "react";
-
-// Sample movie data
-const newReleases = [
-  {
-    id: 1,
-    title: "Wolność po włosku",
-    genre: "Dramat, Biograficzny",
-    duration: "117 min",
-    rating: "b/d",
-    description:
-      "Elektryzujący portret Goliardy Sapienzy - wybitnej włoskiej pisarki, złodziejki i kochanki, która po wyjściu z więzienia na nowo odkrywa siebie w trakcie upalnego rzymskiego lata. Reżyseria: Mario Martone. Obsada: Valeria Golino, Matilda De Angelis, Elodie.",
-    releaseDate: "2026-05-01",
-    poster: "/next.svg",
-  },
-];
+import { currentMovies as newReleases } from "@/app/data/movies";
 
 export default function NewReleasesPage() {
   const [selectedMovie, setSelectedMovie] = useState<number | null>(null);
@@ -82,9 +68,6 @@ export default function NewReleasesPage() {
                     Premiera:{" "}
                     {new Date(movie.releaseDate).toLocaleDateString("pl-PL")}
                   </span>
-                  <button className="px-4 py-2 bg-newa-green hover:bg-newa-green/80 text-white rounded-lg transition-colors font-semibold">
-                    Kup bilet
-                  </button>
                 </div>
 
                 {/* Expanded details */}

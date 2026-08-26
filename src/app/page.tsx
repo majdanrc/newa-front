@@ -4,30 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { monoton } from "@/app/ui/fonts";
 import { AiFillPlayCircle } from "react-icons/ai";
-
-const featuredMovies = [
-  {
-    id: 1,
-    title: "Parasite",
-    genre: "Dramat",
-    rating: "15+",
-    description: "Zwycięzca Oscara od Bong Joon-ho",
-  },
-  {
-    id: 2,
-    title: "The Lighthouse",
-    genre: "Dramat/Horror",
-    rating: "15+",
-    description: "Hipnotyzujący thriller psychologiczny",
-  },
-  {
-    id: 3,
-    title: "Portrait de la jeune fille",
-    genre: "Dramat",
-    rating: "12+",
-    description: "Poruszająca opowieść o miłości i sztuce",
-  },
-];
+import { currentMovies as featuredMovies } from "@/app/data/movies";
 
 export default function Home() {
   return (
@@ -138,11 +115,6 @@ export default function Home() {
                     <span className="text-gray-500 text-sm">
                       {movie.rating}
                     </span>
-                    <Link href="/repertoire">
-                      <button className="px-4 py-2 bg-newa-green/20 hover:bg-newa-green text-newa-green hover:text-white rounded-lg transition-colors text-sm font-semibold">
-                        Kup bilet
-                      </button>
-                    </Link>
                   </div>
                 </div>
               </div>

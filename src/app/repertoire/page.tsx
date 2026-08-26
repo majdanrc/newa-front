@@ -181,7 +181,7 @@ export default function RepertoirePage() {
                     </div>
                   </div>
 
-                  {/* Price and Action */}
+                  {/* Price */}
                   <div className="flex items-center gap-4 md:flex-col md:items-end">
                     <div className="text-right">
                       <p className="text-gray-400 text-sm">od</p>
@@ -189,9 +189,6 @@ export default function RepertoirePage() {
                         {show.price}
                       </p>
                     </div>
-                    <button className="px-6 py-3 bg-newa-green hover:bg-newa-green/80 text-white rounded-lg transition-colors font-semibold whitespace-nowrap">
-                      Kup bilet
-                    </button>
                   </div>
                 </div>
               </div>
