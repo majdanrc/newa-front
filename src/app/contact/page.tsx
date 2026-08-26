@@ -255,20 +255,27 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Map placeholder */}
+            {/* Map */}
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-lg shadow-xl border border-gray-700">
               <h2 className="text-2xl font-bold text-newa-green mb-4">
                 Jak do nas trafić?
               </h2>
-              <div className="bg-gray-700 h-64 rounded-lg flex items-center justify-center">
-                <div className="text-center text-gray-400">
-                  <AiOutlineEnvironment className="text-6xl mx-auto mb-4" />
-                  <p>Mapa Google Maps</p>
-                  <p className="text-sm mt-2">
-                    (Integracja z Google Maps API)
-                  </p>
-                </div>
+              <div className="h-64 rounded-lg overflow-hidden">
+                <iframe
+                  title="Mapa - Kino Newa"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=15.5093516%2C51.9419229%2C15.5173516%2C51.9469229&layer=mapnik&marker=51.9444229%2C15.5133516"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                />
               </div>
+              <a
+                href="https://www.openstreetmap.org/?mlat=51.9444229&mlon=15.5133516#map=17/51.9444229/15.5133516"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-newa-green text-sm hover:underline mt-2 inline-block"
+              >
+                Zobacz większą mapę
+              </a>
               <p className="text-gray-400 text-sm mt-4">
                 🚌 Autobus: Centrum miasta, blisko dworca autobusowego
                 <br />
