@@ -8,68 +8,13 @@ import { useState } from "react";
 const newReleases = [
   {
     id: 1,
-    title: "Parasite",
-    genre: "Dramat, Thriller",
-    duration: "132 min",
-    rating: "15+",
+    title: "Wolność po włosku",
+    genre: "Dramat, Biograficzny",
+    duration: "117 min",
+    rating: "b/d",
     description:
-      "Zwycięzca Oscara 2020. Pełna czarnego humoru opowieść o klasie i nierównościach społecznych. Reżyseria: Bong Joon-ho.",
-    releaseDate: "2024-12-06",
-    poster: "/next.svg",
-  },
-  {
-    id: 2,
-    title: "The Lighthouse",
-    genre: "Dramat, Horror",
-    duration: "109 min",
-    rating: "15+",
-    description:
-      "Dwóch latarników morskich powoli pogrąża się w szaleństwie na odludnej wyspie. Hipnotyzujący thriller psychologiczny.",
-    releaseDate: "2024-12-07",
-    poster: "/next.svg",
-  },
-  {
-    id: 3,
-    title: "Portrait de la jeune fille en feu",
-    genre: "Dramat, Romans",
-    duration: "122 min",
-    rating: "12+",
-    description:
-      "Malarka zostaje wynajęta do namalowania portretu młodej kobiety, która ma wyjść za mąż. Piękna opowieść o miłości i sztuce.",
-    releaseDate: "2024-12-08",
-    poster: "/next.svg",
-  },
-  {
-    id: 4,
-    title: "The Square",
-    genre: "Komedia, Dramat",
-    duration: "151 min",
-    rating: "15+",
-    description:
-      "Satyryczna komedia o współczesnej sztuce i hipokryzji społeczeństwa. Złota Palma w Cannes 2017.",
-    releaseDate: "2024-12-10",
-    poster: "/next.svg",
-  },
-  {
-    id: 5,
-    title: "Ida",
-    genre: "Dramat",
-    duration: "82 min",
-    rating: "12+",
-    description:
-      "Młoda zakonnica odkrywa mroczną tajemnicę swojej rodziny. Oscarowy film Pawła Pawlikowskiego.",
-    releaseDate: "2024-12-12",
-    poster: "/next.svg",
-  },
-  {
-    id: 6,
-    title: "Moonlight",
-    genre: "Dramat",
-    duration: "111 min",
-    rating: "15+",
-    description:
-      "Poruszająca opowieść o dorastaniu młodego czarnoskórego mężczyzny w Miami. Zwycięzca Oscara za najlepszy film.",
-    releaseDate: "2024-12-14",
+      "Elektryzujący portret Goliardy Sapienzy - wybitnej włoskiej pisarki, złodziejki i kochanki, która po wyjściu z więzienia na nowo odkrywa siebie w trakcie upalnego rzymskiego lata. Reżyseria: Mario Martone. Obsada: Valeria Golino, Matilda De Angelis, Elodie.",
+    releaseDate: "2026-05-01",
     poster: "/next.svg",
   },
 ];

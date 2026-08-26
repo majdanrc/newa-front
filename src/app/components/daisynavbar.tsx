@@ -4,19 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { monoton } from "@/app/ui/fonts";
 import React, { useState, useEffect, useRef } from "react";
-import {
-  AiFillFacebook,
-  AiFillInstagram,
-  AiFillYoutube,
-  AiOutlineTwitter,
-} from "react-icons/ai";
+import { AiFillFacebook } from "react-icons/ai";
 import Dropdown from "@/app/components/daisydropdown";
 
 const socialMediaIcons = [
   { icon: <AiFillFacebook />, link: "https://www.facebook.com/kkfnewa" },
-  { icon: <AiFillInstagram />, link: "https://instagram.com" },
-  { icon: <AiOutlineTwitter />, link: "https://twitter.com" },
-  { icon: <AiFillYoutube />, link: "https://youtube.com" },
 ];
 
 const DaisyNavbar = () => {

@@ -3,9 +3,6 @@
 import { monoton } from "@/app/ui/fonts";
 import {
   AiFillFacebook,
-  AiFillInstagram,
-  AiFillYoutube,
-  AiOutlineTwitter,
   AiOutlineMail,
   AiOutlinePhone,
   AiOutlineClockCircle,
@@ -225,30 +222,6 @@ export default function ContactPage() {
                   className="bg-gray-700 hover:bg-newa-green p-4 rounded-lg transition-colors flex items-center justify-center"
                 >
                   <AiFillFacebook className="text-4xl text-white" />
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-700 hover:bg-newa-green p-4 rounded-lg transition-colors flex items-center justify-center"
-                >
-                  <AiFillInstagram className="text-4xl text-white" />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-700 hover:bg-newa-green p-4 rounded-lg transition-colors flex items-center justify-center"
-                >
-                  <AiOutlineTwitter className="text-4xl text-white" />
-                </a>
-                <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-700 hover:bg-newa-green p-4 rounded-lg transition-colors flex items-center justify-center"
-                >
-                  <AiFillYoutube className="text-4xl text-white" />
                 </a>
               </div>
             </div>
