@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { monoton } from "@/app/ui/fonts";
 import { currentMovies as featuredMovies } from "@/app/data/movies";
 
 export default function Home() {
+  const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
+
   return (
     <main className="flex min-h-screen flex-col bg-gradient-to-b from-gray-900 via-black to-gray-900">
       {/* Hero Section */}
@@ -89,40 +92,84 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {featuredMovies.map((movie) => (
-              <div
-                key={movie.id}
-                className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
-              >
-                <div className="relative h-72 bg-gray-800">
-                  <Image
-                    src={movie.poster}
-                    alt={movie.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
-                  <div className="absolute bottom-4 left-4 z-20">
-                    <span className="px-3 py-1 bg-newa-green/80 text-white rounded-full text-sm font-semibold">
-                      {movie.genre}
-                    </span>
+            {featuredMovies.map((movie) => {
+              const isOpen = selectedMovie === movie.id;
+              return (
+                <div
+                  key={movie.id}
+                  onClick={() => setSelectedMovie(isOpen ? null : movie.id)}
+                  className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                >
+                  <div
+                    className={`relative bg-gray-800 transition-all duration-300 ${
+                      isOpen ? "h-[480px]" : "h-72"
+                    }`}
+                  >
+                    <Image
+                      src={movie.poster}
+                      alt={movie.title}
+                      fill
+                      className={isOpen ? "object-contain" : "object-cover"}
+                    />
+                    {!isOpen && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
+                        <div className="absolute bottom-4 left-4 z-20">
+                          <span className="px-3 py-1 bg-newa-green/80 text-white rounded-full text-sm font-semibold">
+                            {movie.genre}
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {movie.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm mb-4">
+                      {movie.description}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      {movie.rating && movie.rating !== "b/d" && (
+                        <span className="text-gray-500 text-sm">
+                          {movie.rating}
+                        </span>
+                      )}
+                    </div>
+
+                    {isOpen && (
+                      <div className="mt-4 pt-4 border-t border-gray-700 animate-fadeIn space-y-2 text-sm text-gray-400">
+                        <p>
+                          <strong className="text-newa-green">Gatunek:</strong>{" "}
+                          {movie.genre}
+                        </p>
+                        <p>
+                          <strong className="text-newa-green">
+                            Czas trwania:
+                          </strong>{" "}
+                          {movie.duration}
+                        </p>
+                        {movie.director && (
+                          <p>
+                            <strong className="text-newa-green">
+                              Reżyseria:
+                            </strong>{" "}
+                            {movie.director}
+                          </p>
+                        )}
+                        {movie.country && (
+                          <p>
+                            <strong className="text-newa-green">Kraj:</strong>{" "}
+                            {movie.country}
+                            {movie.year ? `, ${movie.year}` : ""}
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {movie.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4">
-                    {movie.description}
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-500 text-sm">
-                      {movie.rating}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="text-center mt-12">
@@ -157,7 +204,8 @@ export default function Home() {
                 Kino studyjne
               </h3>
               <p className="text-gray-400">
-                Kameralna atmosfera i starannie wyselekcjonowany repertuar dla prawdziwych miłośników kina.
+                Kameralna atmosfera i starannie wyselekcjonowany repertuar dla
+                prawdziwych miłośników kina.
               </p>
             </div>
 
@@ -167,7 +215,8 @@ export default function Home() {
                 Kino artystyczne
               </h3>
               <p className="text-gray-400">
-                Filmy ambitne, festiwalowe, autorskie. Kino dla tych, którzy szukają czegoś więcej.
+                Filmy ambitne, festiwalowe, autorskie. Kino dla tych, którzy
+                szukają czegoś więcej.
               </p>
             </div>
 
@@ -177,7 +226,8 @@ export default function Home() {
                 Tradycja i historia
               </h3>
               <p className="text-gray-400">
-                Kultowe kino z wieloletnią tradycją, które przetrwało próbę czasu i zachowało swój unikalny charakter.
+                Kultowe kino z wieloletnią tradycją, które przetrwało próbę
+                czasu i zachowało swój unikalny charakter.
               </p>
             </div>
 
@@ -187,7 +237,8 @@ export default function Home() {
                 Kino z duszą
               </h3>
               <p className="text-gray-400">
-                To nie tylko miejsce do oglądania filmów - to przestrzeń spotkań, dyskusji i pasji kinowej.
+                To nie tylko miejsce do oglądania filmów - to przestrzeń
+                spotkań, dyskusji i pasji kinowej.
               </p>
             </div>
           </div>
@@ -202,7 +253,7 @@ export default function Home() {
               Gotowy na niezapomniane wrażenia?
             </h2>
             <p className="text-gray-400 text-lg mb-8">
-              Sprawdź aktualny repertuar i zarezerwuj swoje miejsce już teraz!
+              Sprawdź aktualny repertuar i odwiedź nas już teraz!
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/repertoire">

@@ -9,10 +9,15 @@ import { currentMovies } from "@/app/data/movies";
 const movieById = new Map(currentMovies.map((movie) => [movie.id, movie]));
 
 export default function RepertoirePage() {
-  const days = Array.from(new Set(repertoire.map((block) => block.date))).sort();
+  const days = Array.from(
+    new Set(repertoire.map((block) => block.date)),
+  ).sort();
   const [selectedDate, setSelectedDate] = useState(days[0]);
+  const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
 
-  const blocksForDay = repertoire.filter((block) => block.date === selectedDate);
+  const blocksForDay = repertoire.filter(
+    (block) => block.date === selectedDate,
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
@@ -25,9 +30,7 @@ export default function RepertoirePage() {
             Repertuar
           </h1>
           <div className="w-32 h-1 bg-newa-green mx-auto mb-4"></div>
-          <p className="text-gray-400 text-lg">
-            Sprawdź aktualny repertuar
-          </p>
+          <p className="text-gray-400 text-lg">Sprawdź aktualny repertuar</p>
         </div>
 
         {/* Day Selector */}
@@ -92,35 +95,70 @@ export default function RepertoirePage() {
                   </div>
 
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {movies.map((movie) => (
-                      <div
-                        key={movie.id}
-                        className="bg-gray-900/60 rounded-lg overflow-hidden border border-gray-700"
-                      >
-                        <div className="relative h-48 bg-gray-800">
-                          <Image
-                            src={movie.poster}
-                            alt={movie.title}
-                            fill
-                            className="object-cover"
-                          />
-                          {movie.polishPremiere && (
-                            <span className="absolute top-2 right-2 px-2 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
-                              Polska premiera
-                            </span>
-                          )}
+                    {movies.map((movie) => {
+                      const isOpen = selectedMovie === movie.id;
+                      return (
+                        <div
+                          key={movie.id}
+                          onClick={() =>
+                            setSelectedMovie(isOpen ? null : movie.id)
+                          }
+                          className="bg-gray-900/60 rounded-lg overflow-hidden border border-gray-700 cursor-pointer hover:border-newa-green transition-all"
+                        >
+                          <div
+                            className={`relative bg-gray-800 transition-all duration-300 ${
+                              isOpen ? "h-[420px]" : "h-48"
+                            }`}
+                          >
+                            <Image
+                              src={movie.poster}
+                              alt={movie.title}
+                              fill
+                              className={
+                                isOpen ? "object-contain" : "object-cover"
+                              }
+                            />
+                            {movie.polishPremiere && (
+                              <span className="absolute top-2 right-2 px-2 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
+                                Polska premiera
+                              </span>
+                            )}
+                          </div>
+                          <div className="p-4">
+                            <h4 className="font-bold text-white mb-1">
+                              {movie.title}
+                            </h4>
+                            <p className="text-gray-400 text-sm">
+                              {movie.duration}
+                              {movie.director ? ` · ${movie.director}` : ""}
+                            </p>
+
+                            {isOpen && (
+                              <div className="mt-3 pt-3 border-t border-gray-700 animate-fadeIn space-y-2 text-sm text-gray-400">
+                                <p>{movie.description}</p>
+                                {movie.country && (
+                                  <p>
+                                    <strong className="text-newa-green">
+                                      Kraj:
+                                    </strong>{" "}
+                                    {movie.country}
+                                    {movie.year ? `, ${movie.year}` : ""}
+                                  </p>
+                                )}
+                                {movie.rating && movie.rating !== "b/d" && (
+                                  <p>
+                                    <strong className="text-newa-green">
+                                      Kategoria wiekowa:
+                                    </strong>{" "}
+                                    {movie.rating}
+                                  </p>
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        <div className="p-4">
-                          <h4 className="font-bold text-white mb-1">
-                            {movie.title}
-                          </h4>
-                          <p className="text-gray-400 text-sm">
-                            {movie.duration}
-                            {movie.director ? ` · ${movie.director}` : ""}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -150,14 +188,10 @@ export default function RepertoirePage() {
               </li>
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 font-bold">2.</span>
-                <span>Zarezerwuj telefonicznie (zalecane)</span>
+                <span>Dowolny wybór miejsc na sali</span>
               </li>
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 font-bold">3.</span>
-                <span>Miejsca numerowane - dowolny wybór</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-newa-green mr-3 font-bold">4.</span>
                 <span>Płatność gotówką lub kartą</span>
               </li>
             </ol>
@@ -170,7 +204,7 @@ export default function RepertoirePage() {
             <ul className="space-y-3 text-gray-300 text-sm">
               <li>• Kasa otwiera się 30 minut przed pierwszym seansem</li>
               <li>• Zalecamy przyjście 15 minut przed seansem</li>
-              <li>• Możliwość rezerwacji telefonicznej</li>
+              <li>• Nie prowadzimy rezerwacji ani sprzedaży biletów online</li>
               <li>• Zniżki dla studentów i seniorów przy okazaniu dokumentu</li>
               <li>• Kino studyjne - kameralna atmosfera, jedna sala</li>
             </ul>
