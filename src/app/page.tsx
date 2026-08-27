@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { monoton } from "@/app/ui/fonts";
 import { currentMovies as featuredMovies } from "@/app/data/movies";
+import MovieModal from "@/app/components/movieModal";
 
 export default function Home() {
   const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
@@ -92,85 +93,49 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {featuredMovies.map((movie) => {
-              const isOpen = selectedMovie === movie.id;
-              return (
-                <div
-                  key={movie.id}
-                  onClick={() => setSelectedMovie(isOpen ? null : movie.id)}
-                  className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                >
-                  <div
-                    className={`relative bg-gray-800 transition-all duration-300 ${
-                      isOpen ? "h-[480px]" : "h-72"
-                    }`}
-                  >
-                    <Image
-                      src={movie.poster}
-                      alt={movie.title}
-                      fill
-                      className={isOpen ? "object-contain" : "object-cover"}
-                    />
-                    {!isOpen && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
-                        <div className="absolute bottom-4 left-4 z-20">
-                          <span className="px-3 py-1 bg-newa-green/80 text-white rounded-full text-sm font-semibold">
-                            {movie.genre}
-                          </span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {movie.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-4">
-                      {movie.description}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      {movie.rating && movie.rating !== "b/d" && (
-                        <span className="text-gray-500 text-sm">
-                          {movie.rating}
-                        </span>
-                      )}
-                    </div>
-
-                    {isOpen && (
-                      <div className="mt-4 pt-4 border-t border-gray-700 animate-fadeIn space-y-2 text-sm text-gray-400">
-                        <p>
-                          <strong className="text-newa-green">Gatunek:</strong>{" "}
-                          {movie.genre}
-                        </p>
-                        <p>
-                          <strong className="text-newa-green">
-                            Czas trwania:
-                          </strong>{" "}
-                          {movie.duration}
-                        </p>
-                        {movie.director && (
-                          <p>
-                            <strong className="text-newa-green">
-                              Reżyseria:
-                            </strong>{" "}
-                            {movie.director}
-                          </p>
-                        )}
-                        {movie.country && (
-                          <p>
-                            <strong className="text-newa-green">Kraj:</strong>{" "}
-                            {movie.country}
-                            {movie.year ? `, ${movie.year}` : ""}
-                          </p>
-                        )}
-                      </div>
-                    )}
+            {featuredMovies.map((movie) => (
+              <div
+                key={movie.id}
+                onClick={() => setSelectedMovie(movie.id)}
+                className="group bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              >
+                <div className="relative h-72 bg-gray-800">
+                  <Image
+                    src={movie.poster}
+                    alt={movie.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent z-10"></div>
+                  <div className="absolute bottom-4 left-4 z-20">
+                    <span className="px-3 py-1 bg-newa-green/80 text-white rounded-full text-sm font-semibold">
+                      {movie.genre}
+                    </span>
                   </div>
                 </div>
-              );
-            })}
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {movie.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-4">
+                    {movie.description}
+                  </p>
+                  {movie.rating && movie.rating !== "b/d" && (
+                    <span className="text-gray-500 text-sm">
+                      {movie.rating}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
+
+          <MovieModal
+            movie={
+              featuredMovies.find((movie) => movie.id === selectedMovie) ?? null
+            }
+            onClose={() => setSelectedMovie(null)}
+          />
 
           <div className="text-center mt-12">
             <Link href="/new-releases">

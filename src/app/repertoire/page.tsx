@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { repertoire } from "@/app/data/repertoire";
 import { currentMovies } from "@/app/data/movies";
+import MovieModal from "@/app/components/movieModal";
 
 const movieById = new Map(currentMovies.map((movie) => [movie.id, movie]));
 
@@ -95,70 +96,36 @@ export default function RepertoirePage() {
                   </div>
 
                   <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {movies.map((movie) => {
-                      const isOpen = selectedMovie === movie.id;
-                      return (
-                        <div
-                          key={movie.id}
-                          onClick={() =>
-                            setSelectedMovie(isOpen ? null : movie.id)
-                          }
-                          className="bg-gray-900/60 rounded-lg overflow-hidden border border-gray-700 cursor-pointer hover:border-newa-green transition-all"
-                        >
-                          <div
-                            className={`relative bg-gray-800 transition-all duration-300 ${
-                              isOpen ? "h-[420px]" : "h-48"
-                            }`}
-                          >
-                            <Image
-                              src={movie.poster}
-                              alt={movie.title}
-                              fill
-                              className={
-                                isOpen ? "object-contain" : "object-cover"
-                              }
-                            />
-                            {movie.polishPremiere && (
-                              <span className="absolute top-2 right-2 px-2 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
-                                Polska premiera
-                              </span>
-                            )}
-                          </div>
-                          <div className="p-4">
-                            <h4 className="font-bold text-white mb-1">
-                              {movie.title}
-                            </h4>
-                            <p className="text-gray-400 text-sm">
-                              {movie.duration}
-                              {movie.director ? ` · ${movie.director}` : ""}
-                            </p>
-
-                            {isOpen && (
-                              <div className="mt-3 pt-3 border-t border-gray-700 animate-fadeIn space-y-2 text-sm text-gray-400">
-                                <p>{movie.description}</p>
-                                {movie.country && (
-                                  <p>
-                                    <strong className="text-newa-green">
-                                      Kraj:
-                                    </strong>{" "}
-                                    {movie.country}
-                                    {movie.year ? `, ${movie.year}` : ""}
-                                  </p>
-                                )}
-                                {movie.rating && movie.rating !== "b/d" && (
-                                  <p>
-                                    <strong className="text-newa-green">
-                                      Kategoria wiekowa:
-                                    </strong>{" "}
-                                    {movie.rating}
-                                  </p>
-                                )}
-                              </div>
-                            )}
-                          </div>
+                    {movies.map((movie) => (
+                      <div
+                        key={movie.id}
+                        onClick={() => setSelectedMovie(movie.id)}
+                        className="bg-gray-900/60 rounded-lg overflow-hidden border border-gray-700 cursor-pointer hover:border-newa-green transition-all"
+                      >
+                        <div className="relative h-48 bg-gray-800">
+                          <Image
+                            src={movie.poster}
+                            alt={movie.title}
+                            fill
+                            className="object-cover"
+                          />
+                          {movie.polishPremiere && (
+                            <span className="absolute top-2 right-2 px-2 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
+                              Polska premiera
+                            </span>
+                          )}
                         </div>
-                      );
-                    })}
+                        <div className="p-4">
+                          <h4 className="font-bold text-white mb-1">
+                            {movie.title}
+                          </h4>
+                          <p className="text-gray-400 text-sm">
+                            {movie.duration}
+                            {movie.director ? ` · ${movie.director}` : ""}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               );
@@ -174,6 +141,11 @@ export default function RepertoirePage() {
             </p>
           </div>
         )}
+
+        <MovieModal
+          movie={selectedMovie ? movieById.get(selectedMovie) ?? null : null}
+          onClose={() => setSelectedMovie(null)}
+        />
 
         {/* Info Sections */}
         <div className="grid md:grid-cols-2 gap-8 mt-16">

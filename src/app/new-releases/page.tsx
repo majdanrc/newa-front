@@ -4,6 +4,7 @@ import { monoton } from "@/app/ui/fonts";
 import Image from "next/image";
 import { useState } from "react";
 import { currentMovies as newReleases } from "@/app/data/movies";
+import MovieModal from "@/app/components/movieModal";
 
 export default function NewReleasesPage() {
   const [selectedMovie, setSelectedMovie] = useState<string | null>(null);
@@ -26,111 +27,67 @@ export default function NewReleasesPage() {
 
         {/* Movies Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newReleases.map((movie) => {
-            const isOpen = selectedMovie === movie.id;
-            return (
-              <div
-                key={movie.id}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                onClick={() => setSelectedMovie(isOpen ? null : movie.id)}
-              >
-                {/* Movie Poster */}
-                <div
-                  className={`relative bg-gray-800 transition-all duration-300 ${
-                    isOpen ? "h-[480px]" : "h-64"
-                  }`}
-                >
-                  <Image
-                    src={movie.poster}
-                    alt={movie.title}
-                    fill
-                    className={isOpen ? "object-contain" : "object-cover"}
-                  />
-                  {movie.polishPremiere && (
-                    <span className="absolute top-3 right-3 px-3 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
-                      Polska premiera
+          {newReleases.map((movie) => (
+            <div
+              key={movie.id}
+              className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-xl border border-gray-700 hover:border-newa-green transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              onClick={() => setSelectedMovie(movie.id)}
+            >
+              {/* Movie Poster */}
+              <div className="relative h-64 bg-gray-800">
+                <Image
+                  src={movie.poster}
+                  alt={movie.title}
+                  fill
+                  className="object-cover"
+                />
+                {movie.polishPremiere && (
+                  <span className="absolute top-3 right-3 px-3 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
+                    Polska premiera
+                  </span>
+                )}
+              </div>
+
+              {/* Movie Info */}
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-newa-green mb-2">
+                  {movie.title}
+                </h3>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="px-3 py-1 bg-newa-green/20 text-newa-green rounded-full text-sm">
+                    {movie.genre}
+                  </span>
+                  <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
+                    {movie.duration}
+                  </span>
+                  {movie.rating && movie.rating !== "b/d" && (
+                    <span className="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-sm">
+                      {movie.rating}
                     </span>
                   )}
                 </div>
 
-                {/* Movie Info */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-newa-green mb-2">
-                    {movie.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="px-3 py-1 bg-newa-green/20 text-newa-green rounded-full text-sm">
-                      {movie.genre}
-                    </span>
-                    <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
-                      {movie.duration}
-                    </span>
-                    {movie.rating && movie.rating !== "b/d" && (
-                      <span className="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-sm">
-                        {movie.rating}
-                      </span>
-                    )}
-                  </div>
+                <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+                  {movie.description}
+                </p>
 
-                  <p className="text-gray-300 text-sm mb-4 line-clamp-3">
-                    {movie.description}
-                  </p>
-
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-400 text-sm">
-                      Premiera:{" "}
-                      {new Date(movie.releaseDate).toLocaleDateString("pl-PL")}
-                    </span>
-                  </div>
-
-                  {/* Expanded details */}
-                  {isOpen && (
-                    <div className="mt-4 pt-4 border-t border-gray-700 animate-fadeIn">
-                      <p className="text-gray-300 text-sm">
-                        {movie.description}
-                      </p>
-                      <div className="mt-4 space-y-2 text-sm text-gray-400">
-                        <p>
-                          <strong className="text-newa-green">Gatunek:</strong>{" "}
-                          {movie.genre}
-                        </p>
-                        <p>
-                          <strong className="text-newa-green">
-                            Czas trwania:
-                          </strong>{" "}
-                          {movie.duration}
-                        </p>
-                        {movie.director && (
-                          <p>
-                            <strong className="text-newa-green">
-                              Reżyseria:
-                            </strong>{" "}
-                            {movie.director}
-                          </p>
-                        )}
-                        {movie.country && (
-                          <p>
-                            <strong className="text-newa-green">Kraj:</strong>{" "}
-                            {movie.country}
-                            {movie.year ? `, ${movie.year}` : ""}
-                          </p>
-                        )}
-                        {movie.rating && movie.rating !== "b/d" && (
-                          <p>
-                            <strong className="text-newa-green">
-                              Kategoria wiekowa:
-                            </strong>{" "}
-                            {movie.rating}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  )}
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">
+                    Premiera:{" "}
+                    {new Date(movie.releaseDate).toLocaleDateString("pl-PL")}
+                  </span>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
+
+        <MovieModal
+          movie={
+            newReleases.find((movie) => movie.id === selectedMovie) ?? null
+          }
+          onClose={() => setSelectedMovie(null)}
+        />
 
         {/* Info Section */}
         <div className="mt-16 bg-gradient-to-r from-newa-green/20 to-transparent p-8 rounded-lg border-l-4 border-newa-green">
@@ -138,8 +95,8 @@ export default function NewReleasesPage() {
             Informacje o biletach
           </h2>
           <p className="text-gray-300 mb-4">
-            Bilety można kupić wyłącznie w kasie kina. Nie prowadzimy
-            rezerwacji ani sprzedaży biletów online.
+            Bilety można kupić wyłącznie w kasie kina. Nie prowadzimy rezerwacji
+            ani sprzedaży biletów online.
           </p>
           <p className="text-gray-400 text-sm">
             💡 Tip: Śledź nas na Facebooku, aby być na bieżąco z repertuarem i
