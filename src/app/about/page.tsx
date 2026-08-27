@@ -22,15 +22,19 @@ export default function AboutPage() {
               Nasza Historia
             </h2>
             <p className="text-gray-300 leading-relaxed">
-              Kino Newa to studyjne kino z wieloletnią tradycją i unikalnym
-              charakterem. Od lat jesteśmy miejscem spotkań miłośników
-              ambitnego kina, przestrzenią kultury i dyskusji filmowej.
+              Kino Newa rozpoczęło działalność 17 grudnia 1960 roku i od
+              ponad sześciu dekad pozostaje ważnym miejscem na kulturalnej
+              mapie Zielonej Góry. Od lat 80. prowadzone jest przez Klub
+              Kultury Filmowej.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              Obecnie kino przechodzi remont, dzięki któremu wkrótce powróci
-              w odnowionej formie. Zachowując swój niepowtarzalny klimat,
-              oferujemy starannie wyselekcjonowany repertuar - od klasyki
-              filmowej po najnowsze produkcje festiwalowe.
+              Newa zachowuje charakter kina studyjnego, prezentując
+              starannie wybrane filmy polskie i europejskie, kino
+              artystyczne, autorskie oraz produkcje nagradzane na
+              festiwalach. To także przestrzeń spotkań z twórcami, rozmów o
+              filmie i wydarzeń kulturalnych. Kameralna atmosfera oraz
+              repertuar stanowiący alternatywę dla kin komercyjnych tworzą
+              niepowtarzalny charakter tego miejsca.
             </p>
           </div>
 
@@ -42,31 +46,38 @@ export default function AboutPage() {
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 text-xl">•</span>
                 <span className="text-gray-300">
-                  Kameralna atmosfera jedno salowego kina
+                  Kameralna, jednosalowa przestrzeń z niepowtarzalną
+                  atmosferą
                 </span>
               </li>
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 text-xl">•</span>
                 <span className="text-gray-300">
-                  Starannie dobrany repertuar - kino artystyczne i ambitne
+                  Starannie wybrany repertuar
                 </span>
               </li>
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 text-xl">•</span>
                 <span className="text-gray-300">
-                  Wieloletnia tradycja i historia
+                  Pokazy specjalne, festiwale i spotkania z twórcami
                 </span>
               </li>
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 text-xl">•</span>
                 <span className="text-gray-300">
-                  Specjalne pokazy, festiwale i spotkania z twórcami
+                  Seanse bez bloków reklamowych
                 </span>
               </li>
               <li className="flex items-start">
                 <span className="text-newa-green mr-3 text-xl">•</span>
                 <span className="text-gray-300">
-                  Autentyczny klimat prawdziwego kina studyjnego
+                  Brak sprzedaży przekąsek - u nas najważniejszy jest film
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-newa-green mr-3 text-xl">•</span>
+                <span className="text-gray-300">
+                  Autentyczny klimat kina studyjnego
                 </span>
               </li>
             </ul>
@@ -78,16 +89,21 @@ export default function AboutPage() {
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-lg shadow-xl border border-newa-green/20 hover:border-newa-green/50 transition-all">
             <h3 className="text-2xl font-bold text-newa-green mb-4">Sala</h3>
             <p className="text-gray-300">
-              Jedna kameralna sala kinowa z unikalnym charakterem i atmosferą, 
-              idealna do pokazów filmów artystycznych i studyjnych.
+              Nasza kameralna sala kinowa mieści 181 widzów i ma
+              niepowtarzalny charakter. Znajduje się w niej również scena,
+              na której odbywają się spotkania z twórcami, rozmowy,
+              prelekcje oraz inne wydarzenia.
             </p>
           </div>
 
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-lg shadow-xl border border-newa-green/20 hover:border-newa-green/50 transition-all">
             <h3 className="text-2xl font-bold text-newa-green mb-4">Remont</h3>
             <p className="text-gray-300">
-              Kino przechodzi obecnie remont. Wkrótce powrócimy w odnowionej
-              formie, zachowując autentyczny klimat i duszę tego miejsca.
+              Pierwszy etap modernizacji Kina Newa jest już za nami. W sali
+              wymieniliśmy fotele oraz unowocześniliśmy system wentylacji.
+              Kino działa i zaprasza na seanse, a przed nami jeszcze kilka
+              ważnych zmian, które zwiększą komfort widzów, nie odbierając
+              temu miejscu jego wyjątkowego charakteru.
             </p>
           </div>
 
@@ -111,20 +127,16 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-8 text-gray-300">
             <div>
               <h3 className="text-xl font-semibold mb-3 text-white">
-                Cennik standardowy:
+                Bilety:
               </h3>
               <ul className="space-y-2">
                 <li className="flex justify-between">
                   <span>Bilet normalny:</span>
-                  <span className="font-bold">20 PLN</span>
+                  <span className="font-bold">20 zł</span>
                 </li>
                 <li className="flex justify-between">
                   <span>Bilet ulgowy:</span>
-                  <span className="font-bold">15 PLN</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Bilety grupowe (od 10 osób):</span>
-                  <span className="font-bold">12 PLN</span>
+                  <span className="font-bold">15 zł</span>
                 </li>
               </ul>
             </div>
@@ -133,18 +145,20 @@ export default function AboutPage() {
                 Informacje:
               </h3>
               <ul className="space-y-2">
+                <li>• Bilety można kupić wyłącznie w kasie kina</li>
                 <li>
-                  • Bilety dostępne w kasie kina przed seansem
+                  • Kasa kina czynna jest 30 minut przed każdym seansem
+                </li>
+                <li>• Płatność możliwa jest gotówką lub kartą</li>
+                <li>
+                  • Bilety ulgowe przysługują uczniom, studentom i seniorom
+                  po okazaniu odpowiedniego dokumentu
                 </li>
                 <li>
-                  • Możliwość rezerwacji telefonicznej
+                  • Dla grup zorganizowanych oferujemy specjalne ceny -
+                  szczegółowe informacje można uzyskać telefonicznie
                 </li>
-                <li>
-                  • Specjalne ceny dla grup zorganizowanych
-                </li>
-                <li>
-                  • Ulgowe ceny dla studentów, seniorów i uczniów
-                </li>
+                <li>• Nie prowadzimy rezerwacji ani sprzedaży biletów online</li>
               </ul>
             </div>
           </div>

@@ -3,6 +3,7 @@
 import { monoton } from "@/app/ui/fonts";
 import {
   AiFillFacebook,
+  AiFillInstagram,
   AiOutlineMail,
   AiOutlinePhone,
   AiOutlineClockCircle,
@@ -172,7 +173,7 @@ export default function ContactPage() {
               {status === "error" && (
                 <p className="text-red-400 text-sm text-center">
                   Nie udało się wysłać wiadomości. Spróbuj ponownie lub
-                  zadzwoń pod 68 325 59 84.
+                  zadzwoń pod 605 097 332.
                 </p>
               )}
             </form>
@@ -204,10 +205,7 @@ export default function ContactPage() {
                   <AiOutlinePhone className="text-newa-green text-3xl mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Telefon</h3>
-                    <p className="text-gray-300">68 325 59 84</p>
-                    <p className="text-gray-400 text-sm mt-1">
-                      Kasa i rezerwacje
-                    </p>
+                    <p className="text-gray-300">605 097 332</p>
                   </div>
                 </div>
 
@@ -215,7 +213,7 @@ export default function ContactPage() {
                   <AiOutlineMail className="text-newa-green text-3xl mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Email</h3>
-                    <p className="text-gray-300">kontakt@kinonewa.pl</p>
+                    <p className="text-gray-300">kinonewa@llf.pl</p>
                   </div>
                 </div>
 
@@ -226,12 +224,7 @@ export default function ContactPage() {
                       Godziny otwarcia
                     </h3>
                     <p className="text-gray-300">
-                      Kasa otwarta od godziny 16:00
-                      <br />
-                      oraz 30 minut przed pierwszym seansem
-                    </p>
-                    <p className="text-gray-400 text-sm mt-2">
-                      (w dni, w których są seanse)
+                      Kasa kina czynna jest 30 minut przed każdym seansem.
                     </p>
                   </div>
                 </div>
@@ -251,6 +244,14 @@ export default function ContactPage() {
                   className="bg-gray-700 hover:bg-newa-green p-4 rounded-lg transition-colors flex items-center justify-center"
                 >
                   <AiFillFacebook className="text-4xl text-white" />
+                </a>
+                <a
+                  href="https://www.instagram.com/kinonewa/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-700 hover:bg-newa-green p-4 rounded-lg transition-colors flex items-center justify-center"
+                >
+                  <AiFillInstagram className="text-4xl text-white" />
                 </a>
               </div>
             </div>
@@ -298,35 +299,28 @@ export default function ContactPage() {
                 Jak kupić bilet?
               </h3>
               <p className="text-gray-300 text-sm">
-                Bilety dostępne w kasie kina oraz poprzez rezerwację telefoniczną.
-                Zalecamy wcześniejsze rezerwacje.
+                Bilety można kupić wyłącznie w kasie kina. Płatność przyjmujemy
+                gotówką oraz kartą. Nie prowadzimy rezerwacji ani sprzedaży
+                biletów online.
               </p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">
-                Czy są zniżki dla grup?
+                Czy oferujemy zniżki dla grup?
               </h3>
               <p className="text-gray-300 text-sm">
-                Oferujemy specjalne ceny dla grup zorganizowanych powyżej 10 osób. 
-                Skontaktuj się z nami telefonicznie.
+                Oferujemy specjalne ceny dla grup zorganizowanych liczących co
+                najmniej 10 osób. W celu uzyskania szczegółowych informacji
+                prosimy o kontakt telefoniczny.
               </p>
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-2">
-                Co to jest kino studyjne?
+                W jakie dni kino jest czynne?
               </h3>
               <p className="text-gray-300 text-sm">
-                Kino studyjne to kino prezentujące ambitny repertuar - filmy
-                artystyczne, festiwalowe i autorskie.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-2">
-                Czy kino jest czynne?
-              </h3>
-              <p className="text-gray-300 text-sm">
-                Kino przechodzi obecnie remont. Najlepiej sprawdzić aktualny
-                repertuar lub skontaktować się telefonicznie.
+                Kino zaprasza od wtorku do niedzieli. W poniedziałki jest
+                nieczynne.
               </p>
             </div>
           </div>

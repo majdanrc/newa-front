@@ -69,9 +69,9 @@ export default function Home() {
           </div>
           <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg text-center border border-gray-700 hover:border-newa-green transition-colors">
             <div className="text-3xl md:text-4xl font-bold text-newa-green mb-2">
-              W
+              181
             </div>
-            <div className="text-gray-400 text-sm">Remoncie</div>
+            <div className="text-gray-400 text-sm">Miejsc</div>
           </div>
         </div>
       </section>

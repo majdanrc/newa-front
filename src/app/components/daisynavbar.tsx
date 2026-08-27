@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { monoton } from "@/app/ui/fonts";
 import React, { useState, useEffect, useRef } from "react";
-import { AiFillFacebook } from "react-icons/ai";
+import { AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import Dropdown from "@/app/components/daisydropdown";
 
 const socialMediaIcons = [
   { icon: <AiFillFacebook />, link: "https://www.facebook.com/kkfnewa" },
+  { icon: <AiFillInstagram />, link: "https://www.instagram.com/kinonewa/" },
 ];
 
 const DaisyNavbar = () => {
